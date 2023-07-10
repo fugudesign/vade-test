@@ -7,6 +7,6 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require('tailwindcss-3d')({ legacy: true })]
 }
 
