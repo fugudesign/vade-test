@@ -82,7 +82,7 @@ const type = computed(() => typeStrings[props.cocktail.strAlcoholic])
 
 <style scoped>
 .card {
-  @apply transform-style-3d perspective-1000 antialiased relative;
+  @apply transform-style-3d perspective-custom antialiased relative;
 }
 .card-layer {
   @apply h-full p-3 rounded-3xl shadow-lg bg-slate-300/10 backdrop-blur backface-hidden;

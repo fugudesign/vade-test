@@ -17,9 +17,3 @@ we still enforce color-scheme: dark, despite the user preference */
     color-scheme: dark;
   }
 }
-
-@layer utilities {
-  .perspective-custom {
-    perspective: 2000px;
-  }
-}
