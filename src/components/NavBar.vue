@@ -6,14 +6,14 @@ defineProps<{
 
 <template>
   <div
-    class="nav-bar"
+    class="nav-bar glass-fx"
     :class="{
       'bottom-0': position === 'bottom',
       'top-0': position === 'top'
     }"
   >
     <div class="container mx-auto">
-      <div class="flex justify-center">
+      <div class="flex justify-center items-center">
         <slot></slot>
       </div>
     </div>
@@ -22,6 +22,9 @@ defineProps<{
 
 <style scoped>
 .nav-bar {
-  @apply flex fixed left-0 right-0 h-36 justify-between items-center;
+  @apply z-10 flex fixed left-0 right-0 h-20 sm:h-36 justify-between items-center;
+}
+.glass-fx {
+  @apply bg-slate-950/90 sm:bg-transparent backdrop-blur sm:backdrop-blur-none;
 }
 </style>

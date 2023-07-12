@@ -12,9 +12,9 @@
   @apply flex flex-col justify-center items-center;
 }
 .brand-name {
-  @apply font-display font-normal text-4xl text-lime-500 -rotate-2;
+  @apply font-display font-normal text-2xl sm:text-4xl text-lime-500 -rotate-2;
 }
 .brand-baseline {
-  @apply text-base font-thin text-slate-300;
+  @apply text-xs sm:text-base font-thin text-slate-300;
 }
 </style>

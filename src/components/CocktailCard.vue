@@ -1,15 +1,9 @@
 <script lang="ts" setup>
-import type { ICocktail } from '@/helpers/thecocktaildb.api'
+import type { Cocktail, Ingredient } from '@/types/cocktailes'
 import { computed } from 'vue'
 
-interface Ingredient {
-  name: string
-  measure: string
-  thumbUrl: string
-}
-
 const props = defineProps<{
-  cocktail: ICocktail
+  cocktail: Cocktail
 }>()
 
 const typeStrings: Record<string, string> = {
@@ -109,7 +103,7 @@ const type = computed(() => typeStrings[props.cocktail.strAlcoholic])
   @apply object-cover object-center;
 }
 .card-title {
-  @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl -rotate-3 font-display leading-tight text-indigo-500;
+  @apply text-5xl sm:text-3xl md:text-4xl xl:text-6xl -rotate-3 font-display leading-tight text-indigo-500;
 }
 .card-type {
   @apply text-sm z-10;
