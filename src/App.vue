@@ -1,24 +1,11 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue'
-import { getRandomCocktails } from '@/helpers/thecocktaildb.api'
-import type { ICocktails } from '@/helpers/thecocktaildb.api'
 import CocktailList from './components/CocktailList.vue'
 import NavBar from './components/NavBar.vue'
 import MagicButton from './components/MagicButton.vue'
 import BrandLogo from './components/BrandLogo.vue'
+import { useTheCocktailDB } from '@/composables/thecocktaildb'
 
-const cocktails = ref<ICocktails>([])
-
-const fetchCocktails = () =>
-  fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s')
-    .then((response) => response.json())
-    .then((data) => (cocktails.value = getRandomCocktails(data)))
-
-const handleRefresh = () => fetchCocktails()
-
-onBeforeMount(() => {
-  fetchCocktails()
-})
+const { data: cocktails, loading, refetch } = useTheCocktailDB()
 </script>
 
 <template>
@@ -42,6 +29,6 @@ onBeforeMount(() => {
 }
 .main-container {
   @apply container mx-auto flex justify-center items-center my-[9rem];
-  max-height: calc(100vh - 18rem);
+    max-height: calc(100vh - 18rem);
 }
 </style>

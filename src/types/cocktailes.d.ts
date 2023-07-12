@@ -1,9 +1,4 @@
-const API_KEY = 1
-const API_BASE = `https://www.thecocktaildb.com/api/json/v1/${API_KEY}`
-
-export const API_SEARCH_ENDPOINT = `${API_BASE}/search.php?s`
-
-export interface ICocktail {
+export interface Cocktail {
   [key: string]: string
   dateModified: string
   idDrink: string
@@ -58,12 +53,14 @@ export interface ICocktail {
   strVideo: string
 }
 
-export type ICocktails = ICocktail[]
+export type Cocktails = Cocktail[]
 
-export interface IData {
-  drinks: Partial<ICocktail>[]
+export interface Data {
+  drinks: Partial<Cocktail>[]
 }
 
-export function getRandomCocktails(data: IData) {
-  return data?.drinks.sort(() => Math.random() - Math.random()).slice(0, 3) as ICocktails
+export interface Ingredient {
+  name: string
+  measure: string
+  thumbUrl: string
 }
