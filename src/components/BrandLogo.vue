@@ -2,8 +2,8 @@
 
 <template>
   <div class="brand">
-    <span class="brand-name"> Cocktail Genius </span>
-    <span class="brand-baseline"> 3 wishes to drink! </span>
+    <span class="brand-name">Cocktail Genius</span>
+    <span class="brand-baseline">3 wishes to drink!</span>
   </div>
 </template>
 

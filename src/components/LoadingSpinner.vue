@@ -1,7 +1,7 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div role="status">
+  <div class="loading-spinner" role="status">
     <svg
       aria-hidden="true"
       class="w-10 h-10 animate-spin text-slate-950 fill-lime-500"

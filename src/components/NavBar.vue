@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 defineProps<{
-  position: 'top' | 'bottom'
+  position?: 'top' | 'bottom'
 }>()
 </script>
 
@@ -9,11 +9,11 @@ defineProps<{
     class="nav-bar glass-fx"
     :class="{
       'bottom-0': position === 'bottom',
-      'top-0': position === 'top'
+      'top-0': position !== 'bottom'
     }"
   >
     <div class="container mx-auto">
-      <div class="flex justify-center items-center">
+      <div class="nav-bar-content flex justify-center items-center">
         <slot></slot>
       </div>
     </div>

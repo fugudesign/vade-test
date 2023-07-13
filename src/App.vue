@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import CocktailList from './components/CocktailList.vue'
-import NavBar from './components/NavBar.vue'
-import MagicButton from './components/MagicButton.vue'
-import BrandLogo from './components/BrandLogo.vue'
+import CocktailList from '@/components/CocktailList.vue'
+import NavBar from '@/components/NavBar.vue'
+import MagicButton from '@/components/MagicButton.vue'
+import BrandLogo from '@/components/BrandLogo.vue'
 import { useTheCocktailDB } from '@/composables/thecocktaildb'
-import LoadingSpinner from './components/LoadingSpinner.vue'
+import LoadingSpinner from '@/components/LoadingSpinner.vue'
 
-const { data: cocktails, loading, refetch } = useTheCocktailDB()
+const { data: cocktails, fetchData: fetchCocktails, loading } = useTheCocktailDB()
 </script>
 
 <template>
@@ -24,7 +24,7 @@ const { data: cocktails, loading, refetch } = useTheCocktailDB()
       </Transition>
     </div>
     <NavBar position="bottom">
-      <MagicButton :disabled="loading" @click="refetch" />
+      <MagicButton :disabled="loading" @click="fetchCocktails" />
     </NavBar>
   </div>
 </template>

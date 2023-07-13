@@ -2,7 +2,7 @@
 import InlineSvg from 'vue-inline-svg'
 
 defineProps<{
-  disabled: boolean
+  disabled?: boolean
 }>()
 const emit = defineEmits<{
   (e: 'click'): void
@@ -10,7 +10,12 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <button @click="emit('click')" :disabled="disabled" class="magic-button group">
+  <button
+    @click="emit('click')"
+    :disabled="disabled"
+    class="magic-button group"
+    title="Click to refresh"
+  >
     <span v-if="!disabled" class="animated-reflect"></span>
     <inline-svg
       src="/noun-magic-lamp-2105386.svg"

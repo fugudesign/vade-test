@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Cocktail, Ingredient } from '@/types/cocktailes'
+import type { Cocktail, Ingredient } from '@/types/cocktails'
 import { computed } from 'vue'
 
 const props = defineProps<{
@@ -11,35 +11,41 @@ const typeStrings: Record<string, string> = {
   'Optional alcohol': 'Soft/Alcoholized',
   'Non alcoholic': 'Soft'
 }
+
+const image = computed(
+  () => props?.cocktail?.strDrinkThumb ?? 'https://dummyimage.com/100x100/BBB/fff&text=...'
+)
+const type = computed(() =>
+  props?.cocktail?.strAlcoholic ? typeStrings[props.cocktail.strAlcoholic] : null
+)
+const instructions = computed(() =>
+  props.cocktail?.strInstructions?.toString().split('. ').join('.<br>')
+)
 const ingredients = computed<Record<string, Ingredient>>(() =>
   Array.from(Array(15).keys()).reduce((res, i) => {
     const strIngredient = `strIngredient${i}`
     const name = props.cocktail[strIngredient]
-    return {
-      ...res,
-      ...(name
-        ? {
-            [i]: {
-              name,
-              measure: props.cocktail[`strMeasure${i}`],
-              thumbUrl: `https://www.thecocktaildb.com/images/ingredients/${name}-Small.png`
-            }
+    return !name
+      ? res
+      : {
+          ...res,
+          [i]: {
+            name,
+            measure: props.cocktail[`strMeasure${i}`],
+            thumbUrl: `https://www.thecocktaildb.com/images/ingredients/${name}-Small.png`
           }
-        : {})
-    }
+        }
   }, {})
 )
-
-const type = computed(() => typeStrings[props.cocktail.strAlcoholic])
 </script>
 
 <template>
-  <div class="card group">
+  <div v-if="cocktail" class="cocktail-card card group">
     <div class="card-layer card-front">
       <div class="card-top relative">
-        <span class="bubble-tag absolute top-6 right-5 ml-16">{{ type }}</span>
+        <span v-if="type" class="bubble-tag absolute top-6 right-5 ml-16">{{ type }}</span>
         <div class="card-thumb my-6">
-          <img :src="cocktail.strDrinkThumb" :alt="cocktail.strDrinkAlternate" class="card-img" />
+          <img :src="image" :alt="cocktail?.strDrinkAlternate ?? ''" class="card-img" />
         </div>
       </div>
       <div class="card-bottom mt-2 mb-6">
@@ -51,19 +57,23 @@ const type = computed(() => typeStrings[props.cocktail.strAlcoholic])
     </div>
     <div class="card-layer card-back">
       <div class="card-layer-scroller">
-        <h2 class="text-indigo-500 font-bold text-4xl mb-4">{{ cocktail.strDrink }}</h2>
+        <h2 class="card-back-title">{{ cocktail.strDrink }}</h2>
         <h3 class="subtitle">Instructions</h3>
-        <div class="text-sm" v-html="cocktail.strInstructions.split('. ').join('.<br>')" />
+        <div class="instructions text-sm" v-html="instructions" />
         <div class="text-sm">
           Serve in a <span class="font-black">{{ cocktail.strGlass }}</span
           >.
         </div>
         <br />
         <h3 class="subtitle">Ingredients</h3>
-        <ul>
-          <li v-for="ingredient in ingredients" :key="ingredient.name" class="flex items-center">
+        <ul class="ingredients">
+          <li
+            v-for="(ingredient, i) in ingredients"
+            :key="`ingredient-${i}`"
+            class="ingredient flex items-center"
+          >
             <img :src="ingredient.thumbUrl" class="h-16 my-2" />
-            <div class="ml-2 flex flex-col justify-start w-full">
+            <div class="ingredient-infos">
               <span>{{ ingredient.name }}</span>
               <span class="tag">{{ ingredient.measure }}</span>
             </div>
@@ -105,6 +115,9 @@ const type = computed(() => typeStrings[props.cocktail.strAlcoholic])
 .card-title {
   @apply text-5xl sm:text-3xl md:text-4xl xl:text-6xl -rotate-3 font-display leading-tight text-indigo-500;
 }
+.card-back-title {
+  @apply text-indigo-500 font-bold text-4xl mb-4;
+}
 .card-type {
   @apply text-sm z-10;
 }
@@ -117,4 +130,8 @@ const type = computed(() => typeStrings[props.cocktail.strAlcoholic])
 .subtitle {
   @apply text-lg font-bold text-lime-500 tracking-wide;
 }
+.ingredient-infos {
+  @apply ml-2 flex flex-col justify-start w-full;
+}
 </style>
+@/types/cocktails
